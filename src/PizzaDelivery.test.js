@@ -1,9 +1,18 @@
-// import PizzaDelivery from './PizzaDelivery'
+// import PizzaDelivery from './PizzaDelivery.js'
+// Import Issue with Jest: https://jestjs.io/docs/ecmascript-modules
 
-class PizzaDelivery {
-  deliveryLoc = [] // keep track of deliveries
+/**
+ * Pizza delivery which does not delivery to the same house more than once
+ * @module PizzaDelivery
+ */
+ class PizzaDelivery {
+  deliveryLoc = [] // keep track of delivery locations
   deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resources
 
+  /**
+  * @param {string} deliveries String of up,down,right,left moves represented by ^v><
+  * @param {number} helpers Number of helpers
+  */
   constructor(deliveries, helpers = 0) {
     this.deliveries = deliveries
     this.helpers = helpers
@@ -20,7 +29,12 @@ class PizzaDelivery {
     }
   }
 
- // update delivery location for a resources
+  /**
+  * Update delivery location for a resources
+  * @param {string} direction up,down,right,left
+  * @param {object} deliveryResource {x: int, y: int}
+  * @returns {object} updated delivery resource {x: int, y: int}
+  */
   updateDeliveryResource(direction, deliveryResource) {
     switch (direction) {
       case '^':
@@ -47,11 +61,15 @@ class PizzaDelivery {
 
     for (let i = 0; i < this.deliveries.length; i++) {
 
+      // iterate over the delivery resources so they take turns delivering or keep cycling one resource
       currDelivery = this.updateDeliveryResource(this.deliveries[i], deliveryWorker.next().value)
 
+      // check if the current delivery location exists in the delivery log
       const delivered = this.deliveryLoc.some(
         location => location['x'] === currDelivery.x && location['y'] === currDelivery.y
       )
+
+      // if the location has not been delivered to, we add it to the delivery log
       if (!delivered) this.deliveryLoc.push({ 'x': currDelivery.x, 'y': currDelivery.y })
     }
   }
@@ -60,7 +78,7 @@ class PizzaDelivery {
     return this.deliveryLoc.length
   }
 
-  // cycle deliveries
+  // cycle delivery sources
   *yieldArray(arr) {
     while (true) {
       yield* arr
@@ -68,6 +86,7 @@ class PizzaDelivery {
   }
 }
 
+/*************************** TESTS: Part 1 ***************************/
 describe('Part 1', function () {
   test('a: > = 2 | delivers pizzas to two houses: one to the house at the starting location, and one to the house directly east of the starting location', () => {
     const pizza = new PizzaDelivery('>')
@@ -85,6 +104,7 @@ describe('Part 1', function () {
   })
 })
 
+/*************************** TESTS: Part 2 ***************************/
 describe('Part 2', function () {
   test('a: ^v = 3 | now delivers pizzas to three houses; The delivery person goes north and the goat goes south.', () => {
     const pizza = new PizzaDelivery('^v', 1)
