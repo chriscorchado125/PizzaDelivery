@@ -1,9 +1,13 @@
+/**
+ * Pizza delivery which does not delivery to the same house more than once
+ * @module PizzaDelivery
+ */
 class PizzaDelivery {
-  deliveryLoc = [] // keep track of deliveries
+  deliveryLoc = [] // keep track of delivery locations
   deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resources
 
   /**
-  * @param {string} deliveries String of up,down,right,left moves
+  * @param {string} deliveries String of up,down,right,left moves represented by ^v><
   * @param {number} helpers Number of helpers
   */
   constructor(deliveries, helpers = 0) {
@@ -26,6 +30,7 @@ class PizzaDelivery {
   * Update delivery location for a resources
   * @param {string} direction up,down,right,left
   * @param {object} deliveryResource {x: int, y: int}
+  * @returns {object} updated delivery resource {x: int, y: int}
   */
   updateDeliveryResource(direction, deliveryResource) {
     switch (direction) {
@@ -53,12 +58,15 @@ class PizzaDelivery {
 
     for (let i = 0; i < this.deliveries.length; i++) {
 
+      // iterate over the delivery resources so they take turns delivering or keep cycling one resource
       currDelivery = this.updateDeliveryResource(this.deliveries[i], deliveryWorker.next().value)
 
+      // check if the current delivery location exists in the delivery log
       const delivered = this.deliveryLoc.some(
         location => location['x'] === currDelivery.x && location['y'] === currDelivery.y
       )
 
+      // if the location has not been delivered to, we add it to the delivery log
       if (!delivered) this.deliveryLoc.push({ 'x': currDelivery.x, 'y': currDelivery.y })
     }
   }
