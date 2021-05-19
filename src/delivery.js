@@ -5,7 +5,7 @@ const question1 = new PizzaDelivery(pizzaOrders)
 const question2 = new PizzaDelivery(pizzaOrders, 1)
 
 document.getElementById('results').innerHTML = `
-<h1>Houses Who Received at Least 1 Pizza</h1>
+<h1>Houses that received at least 1 pizza</h1>
 <span>Part I: <b>${question1.getDeliveryCount().toLocaleString()}</b></span>
 <span>Part II: <b>${question2.getDeliveryCount().toLocaleString()}</b></span>
 `
