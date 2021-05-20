@@ -6,8 +6,8 @@
  * @module PizzaDelivery
  */
  class PizzaDelivery {
-  deliveryLoc = [] // keep track of delivery locations
-  deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resources
+    deliveryLoc = [] // keep track of locations which have already been delivered to
+    deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resource
 
   /**
   * @param {string} deliveries String of up,down,right,left moves represented by ^v><
@@ -30,10 +30,10 @@
   }
 
   /**
-  * Update delivery location for a resources
+  * Update delivery location for a resource
   * @param {string} direction up,down,right,left
   * @param {object} deliveryResource {x: int, y: int}
-  * @returns {object} updated delivery resource {x: int, y: int}
+  * @returns {object} updated deliveryResource {x: int, y: int}
   */
   updateDeliveryResource(direction, deliveryResource) {
     switch (direction) {
