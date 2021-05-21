@@ -1,10 +1,10 @@
 /**
- * Pizza delivery which does not delivery to the same house more than once
- * @module PizzaDelivery
- */
- class PizzaDelivery {
-    deliveryLoc = [] // keep track of locations which have already been delivered to
-    deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resource
+* Pizza delivery which does not delivery to the same house more than once
+* @module PizzaDelivery
+*/
+class PizzaDelivery {
+  deliveryLoc = [] // keep track of locations which have already been delivered to
+  deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resource
 
   /**
   * @param {string} deliveries String of up,down,right,left moves represented by ^v><
@@ -36,16 +36,16 @@
     switch (direction) {
       case '^':
         deliveryResource.y++
-        break;
+      break;
       case '>':
         deliveryResource.x++
-        break;
+      break;
       case 'v':
         deliveryResource.y--
-        break;
+      break;
       case '<':
         deliveryResource.x--
-        break;
+      break;
     }
     return deliveryResource
   }
@@ -55,6 +55,7 @@
     this.deliveryLoc.push({ 'x': 0, 'y': 0 }) // starting delivery
     const deliveryWorker = this.yieldArray(this.deliveredBy) // create an iterable from delivery resources
     let currDelivery = {}
+    let delivered = false;
 
     for (let i = 0; i < this.deliveries.length; i++) {
 
@@ -62,7 +63,7 @@
       currDelivery = this.updateDeliveryResource(this.deliveries[i], deliveryWorker.next().value)
 
       // check if the current delivery location exists in the delivery log
-      const delivered = this.deliveryLoc.some(
+      delivered = this.deliveryLoc.some(
         location => location['x'] === currDelivery.x && location['y'] === currDelivery.y
       )
 
