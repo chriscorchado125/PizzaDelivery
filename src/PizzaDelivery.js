@@ -7,8 +7,8 @@ class PizzaDelivery {
   deliveredBy = [{ 'x': 0, 'y': 0 }] // original delivery resource
 
   /**
-  * @param {string} deliveries String of up,down,right,left moves represented by ^v><
-  * @param {number} helpers Number of helpers
+  * @param {string} deliveries - String of up,down,right,left moves represented by ^v><
+  * @param {number} helpers - Number of helpers
   */
   constructor(deliveries, helpers = 0) {
     this.deliveries = deliveries
@@ -28,9 +28,9 @@ class PizzaDelivery {
 
   /**
   * Update delivery location for a resource
-  * @param {string} direction up,down,right,left
-  * @param {object} deliveryResource {x: int, y: int}
-  * @returns {object} updated deliveryResource {x: int, y: int}
+  * @param {string} direction - up,down,right,left
+  * @param {object} deliveryResource - {x: int, y: int}
+  * @returns {object} deliveryResource - updated {x: int, y: int}
   */
   updateDeliveryResource(direction, deliveryResource) {
     switch (direction) {
@@ -53,7 +53,9 @@ class PizzaDelivery {
   // populate delivery locations
   makeDeliveries() {
     this.deliveryLoc.push({ 'x': 0, 'y': 0 }) // starting delivery
+
     const deliveryWorker = this.yieldArray(this.deliveredBy) // create an iterable from delivery resources
+    
     let currDelivery = {}
     let delivered = false;
 
