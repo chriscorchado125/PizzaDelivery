@@ -36,16 +36,16 @@ class PizzaDelivery {
     switch (direction) {
       case '^':
         deliveryResource.y++
-      break;
+      break
       case '>':
         deliveryResource.x++
-      break;
+      break
       case 'v':
         deliveryResource.y--
-      break;
+      break
       case '<':
         deliveryResource.x--
-      break;
+      break
     }
     return deliveryResource
   }
@@ -55,9 +55,9 @@ class PizzaDelivery {
     this.deliveryLoc.push({ 'x': 0, 'y': 0 }) // starting delivery
 
     const deliveryWorker = this.yieldArray(this.deliveredBy) // create an iterable from delivery resources
-    
+
     let currDelivery = {}
-    let delivered = false;
+    let delivered = false
 
     for (let i = 0; i < this.deliveries.length; i++) {
 
@@ -86,4 +86,4 @@ class PizzaDelivery {
   }
 }
 
-export default PizzaDelivery;
+export default PizzaDelivery
